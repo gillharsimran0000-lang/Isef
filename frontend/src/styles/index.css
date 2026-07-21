@@ -3,6 +3,39 @@
 @tailwind utilities;
 
 /*
+ * Geist Pixel — Vercel's bitmap-grid display family, self-hosted (not on the
+ * Google Fonts CDN like the rest of the type system). Five variants, each a
+ * different pixel shape; only Square/Line/Triangle are wired to a Tailwind
+ * font-family token below, but all five are declared so any of them can be
+ * reached with an inline font-family if a future spot calls for it.
+ */
+@font-face {
+  font-family: 'Geist Pixel Square';
+  src: url('/fonts/geist-pixel/GeistPixel-Square.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Pixel Grid';
+  src: url('/fonts/geist-pixel/GeistPixel-Grid.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Pixel Circle';
+  src: url('/fonts/geist-pixel/GeistPixel-Circle.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Pixel Triangle';
+  src: url('/fonts/geist-pixel/GeistPixel-Triangle.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Pixel Line';
+  src: url('/fonts/geist-pixel/GeistPixel-Line.woff2') format('woff2');
+  font-display: swap;
+}
+
+/*
  * PILENGINE design tokens. Dark mode only — there is no light theme.
  */
 
@@ -11,6 +44,9 @@
   --font-sans: 'Geist', 'Inter', -apple-system, system-ui, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-serif: 'Newsreader', 'Iowan Old Style', serif;
+  --font-pixel-square: 'Geist Pixel Square', var(--font-mono);
+  --font-pixel-line: 'Geist Pixel Line', var(--font-mono);
+  --font-pixel-triangle: 'Geist Pixel Triangle', var(--font-mono);
 
   --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-strong: cubic-bezier(0.65, 0, 0.35, 1);

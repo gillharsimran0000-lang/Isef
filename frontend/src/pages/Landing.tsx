@@ -33,7 +33,7 @@ export default function Landing() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
           <div className="flex items-center gap-3">
             <Logo size={64} />
-            <span className="font-display text-xl font-semibold tracking-tight text-[var(--text-primary)]">PILENGINE</span>
+            <span className="font-pixel-square text-lg tracking-wide text-[var(--text-primary)]">PILENGINE</span>
           </div>
           <div className="flex items-center gap-3">
             <Link to="/dashboard">
@@ -83,6 +83,9 @@ export default function Landing() {
             </Link>
             <Link to="/science">
               <Button variant="secondary">Read the Science</Button>
+            </Link>
+            <Link to="/zeolite">
+              <Button variant="secondary">Explore Zeolite 13X</Button>
             </Link>
           </motion.div>
         </motion.div>
@@ -166,9 +169,14 @@ export default function Landing() {
       <footer className="border-t border-[var(--border)] px-5 py-8 sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 text-xs text-[var(--text-faint)]">
           <span>PILENGINE · Scientific Compost Intelligence Platform</span>
-          <Link to="/science" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
-            Sources &amp; derivations
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link to="/zeolite" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
+              Zeolite 13X
+            </Link>
+            <Link to="/science" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
+              Sources &amp; derivations
+            </Link>
+          </div>
         </div>
       </footer>
     </div>

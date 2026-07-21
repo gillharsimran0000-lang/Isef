@@ -31,6 +31,9 @@ export default {
         sans: ['var(--font-sans)'],
         mono: ['var(--font-mono)'],
         serif: ['var(--font-serif)'],
+        'pixel-square': ['var(--font-pixel-square)'],
+        'pixel-line': ['var(--font-pixel-line)'],
+        'pixel-triangle': ['var(--font-pixel-triangle)'],
       },
       borderRadius: { xl: '14px', '2xl': '18px', '3xl': '24px' },
       transitionTimingFunction: {

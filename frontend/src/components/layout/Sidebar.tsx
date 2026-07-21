@@ -38,7 +38,7 @@ export function Sidebar() {
       >
         <Logo size={20} />
         {!collapsed && (
-          <span className="font-display text-[15px] font-semibold tracking-tight text-[var(--text-primary)]">
+          <span className="font-pixel-square text-[13px] tracking-wide text-[var(--text-primary)]">
             PILENGINE
           </span>
         )}

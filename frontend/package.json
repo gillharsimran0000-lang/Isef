@@ -12,16 +12,19 @@
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
     "@pilengine/simulation-engine": "*",
+    "@react-three/fiber": "^8.17.10",
     "framer-motion": "^12.42.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.1",
     "recharts": "^2.15.0",
+    "three": "^0.169.0",
     "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "@types/three": "^0.169.0",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
