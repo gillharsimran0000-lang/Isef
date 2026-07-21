@@ -16,19 +16,19 @@
   --ease-in-out-strong: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 
-  --bg-base: #0b0d0c;
-  --bg-surface: #121412;
-  --bg-elevated: #181b19;
-  --bg-well: #0e100f;
-  --border: rgba(255, 255, 255, 0.09);
-  --border-strong: rgba(255, 255, 255, 0.16);
+  --bg-base: #0d100d;
+  --bg-surface: #141712;
+  --bg-elevated: #181d16;
+  --bg-well: #10130f;
+  --border: rgba(225, 235, 215, 0.08);
+  --border-strong: rgba(225, 235, 215, 0.16);
 
-  --text-primary: #f2f1ed;
-  --text-secondary: #a6a89f;
-  --text-faint: #6b6d66;
+  --text-primary: #eceee7;
+  --text-secondary: #9ba393;
+  --text-faint: #676e60;
 
-  --color-accent: #ff6a3d;
-  --color-accent-ink: #150a05;
+  --color-accent: #a3c088;
+  --color-accent-ink: #0d1309;
 
   --status-nominal-text: #6fd88a;
   --status-warn-text: #e8b23d;

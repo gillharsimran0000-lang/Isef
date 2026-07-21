@@ -7,9 +7,11 @@ import { useEffect, useRef } from 'react';
  * budget, just a different metaphor (a network of signals, not atoms).
  * Dark mode only — the app has no light theme, so the palette is fixed.
  *
- * Clicking/tapping gives nearby nodes a repulsion impulse (a "molecular
- * collision"); they scatter and their speed relaxes back to the ambient
- * drift over ~1-2s. Skipped entirely under prefers-reduced-motion.
+ * Clicking/tapping gives every node on screen a repulsion impulse (a
+ * "molecular collision") — closest nodes get the hardest kick, but the decay
+ * is gentle enough that even far corners visibly join in. They scatter and
+ * their speed relaxes back to the ambient drift over ~1-2s. Skipped entirely
+ * under prefers-reduced-motion.
  */
 
 interface Node {
@@ -141,9 +143,10 @@ export function NetworkField() {
         const dx = n.x - cx;
         const dy = n.y - cy;
         const dist = Math.hypot(dx, dy) || 1;
-        if (dist >= IMPULSE_RADIUS) continue;
-        const falloff = 1 - dist / IMPULSE_RADIUS;
-        const force = falloff * falloff * IMPULSE_STRENGTH;
+        // No cutoff — every node gets a kick. Gentle hyperbolic decay means
+        // the closest nodes get nearly the full impulse while far corners
+        // still get a real, visible nudge instead of nothing.
+        const force = IMPULSE_STRENGTH * (IMPULSE_RADIUS / (dist + IMPULSE_RADIUS));
         n.vx += (dx / dist) * force;
         n.vy += (dy / dist) * force;
       }
