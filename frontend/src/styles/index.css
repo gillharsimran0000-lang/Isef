@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * PILENGINE design tokens. Dark mode only — there is no light theme.
+ */
+
+:root {
+  --font-display: 'Geist', 'Inter', -apple-system, system-ui, sans-serif;
+  --font-sans: 'Geist', 'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-serif: 'Newsreader', 'Iowan Old Style', serif;
+
+  --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-strong: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --bg-base: #0b0d0c;
+  --bg-surface: #121412;
+  --bg-elevated: #181b19;
+  --bg-well: #0e100f;
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --text-primary: #f2f1ed;
+  --text-secondary: #a6a89f;
+  --text-faint: #6b6d66;
+
+  --color-accent: #ff6a3d;
+  --color-accent-ink: #150a05;
+
+  --status-nominal-text: #6fd88a;
+  --status-warn-text: #e8b23d;
+  --status-critical-text: #f0685c;
+
+  --pastel-green-bg: rgba(111, 216, 138, 0.12);
+  --pastel-green-text: #7fe098;
+  --pastel-blue-bg: rgba(94, 169, 230, 0.12);
+  --pastel-blue-text: #7cb8ea;
+  --pastel-yellow-bg: rgba(232, 178, 61, 0.12);
+  --pastel-yellow-text: #eec06a;
+  --pastel-red-bg: rgba(240, 104, 92, 0.12);
+  --pastel-red-text: #f28a80;
+
+  --guild-meso: #6fd88a;
+  --guild-thermo: #ff6a3d;
+  --guild-actino: #eec06a;
+  --guild-fungi: #7cb8ea;
+
+  --phase-mesophilic: #7cb8ea;
+  --phase-thermophilic: #ff6a3d;
+  --phase-cooling: #eec06a;
+  --phase-maturation: #6fd88a;
+  --phase-finished: #a6a89f;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+/* Focus visibility, applied once globally rather than per-component. */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
