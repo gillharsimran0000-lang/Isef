@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
-import { CaretUp, CaretDown, UploadSimple, Trash } from '@phosphor-icons/react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
+import { CaretUp, CaretDown, CaretRight, UploadSimple, Trash } from '@phosphor-icons/react';
+import { getMaterial } from '@pilengine/simulation-engine';
 import { usePileStore } from '@/state/usePile';
 import { useExperimentsStore, ensureSeeded, type Experiment } from '@/state/useExperiments';
-import { fmtTemp, fmtCn, fmtPct, scoreTone, TONE_TOKENS } from '@/lib/format';
+import { fmtTemp, fmtCn, fmtPct, fmtMass, scoreTone, TONE_TOKENS } from '@/lib/format';
 import { Button } from '@/components/ui/Button';
 
 type SortKey = 'name' | 'quality' | 'peakTemp' | 'cn' | 'massLoss' | 'createdAt';
@@ -44,6 +45,7 @@ export function ExperimentsTable() {
   const [asc, setAsc] = useState(false);
   const [page, setPage] = useState(0);
   const [name, setName] = useState('');
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
     ensureSeeded();
@@ -127,6 +129,7 @@ export function ExperimentsTable() {
         <table className="w-full min-w-[720px] border-collapse text-sm">
           <thead>
             <tr className="sticky top-0 z-10 border-b border-[var(--border)] bg-[var(--bg-well)]">
+              <th className="w-8 px-2 py-2" aria-hidden="true" />
               {header('name', 'Experiment')}
               <th className="px-3 py-2 text-left font-medium text-[var(--text-faint)]">Status</th>
               {header('quality', 'Quality')}
@@ -140,7 +143,7 @@ export function ExperimentsTable() {
           <tbody>
             {pageRows.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-3 py-8 text-center text-sm text-[var(--text-faint)]">
+                <td colSpan={9} className="px-3 py-8 text-center text-sm text-[var(--text-faint)]">
                   No experiments saved yet.
                 </td>
               </tr>
@@ -148,47 +151,83 @@ export function ExperimentsTable() {
             {pageRows.map((e) => {
               const tone = scoreTone(e.summary.qualityScore);
               const t = TONE_TOKENS[tone];
+              const expanded = expandedId === e.id;
               return (
-                <tr key={e.id} className="border-b border-[var(--border)] transition-colors duration-150 last:border-0 hover:bg-[var(--bg-well)]">
-                  <td className="px-3 py-2 font-medium text-[var(--text-primary)]">{e.name}</td>
-                  <td className="px-3 py-2">
-                    <span
-                      className="inline-flex rounded-full px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide"
-                      style={{ backgroundColor: t.bg, color: t.text }}
-                    >
-                      {STATUS_LABEL[tone]}
-                    </span>
-                  </td>
-                  <td className="px-3 py-2 font-mono tabular-nums text-[var(--text-secondary)]">{e.summary.qualityScore.toFixed(0)}</td>
-                  <td className="px-3 py-2 font-mono tabular-nums text-[var(--text-secondary)]">{fmtTemp(e.summary.peakTemperatureC)}</td>
-                  <td className="px-3 py-2 font-mono tabular-nums text-[var(--text-secondary)]">{fmtCn(e.summary.finalCn)}</td>
-                  <td className="px-3 py-2 font-mono tabular-nums text-[var(--text-secondary)]">{fmtPct(e.summary.massLossPct, 1)}</td>
-                  <td className="px-3 py-2 text-xs text-[var(--text-faint)]">
-                    {new Date(e.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-                  </td>
-                  <td className="px-3 py-2">
-                    <div className="flex items-center gap-1">
-                      <button
-                        type="button"
-                        onClick={() => setConfig(e.config)}
-                        title="Load into Reactor"
-                        aria-label={`Load ${e.name} into the live pile`}
-                        className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-faint)] transition-colors duration-150 hover:bg-[var(--bg-elevated)] hover:text-[var(--text-primary)]"
+                <Fragment key={e.id}>
+                  <tr
+                    className="cursor-pointer border-b border-[var(--border)] transition-colors duration-150 last:border-0 hover:bg-[var(--bg-well)]"
+                    onClick={() => setExpandedId(expanded ? null : e.id)}
+                  >
+                    <td className="px-2 py-2 text-[var(--text-faint)]">
+                      {expanded ? <CaretDown size={12} /> : <CaretRight size={12} />}
+                    </td>
+                    <td className="px-3 py-2 font-medium text-[var(--text-primary)]">{e.name}</td>
+                    <td className="px-3 py-2">
+                      <span
+                        className="inline-flex rounded-full px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide"
+                        style={{ backgroundColor: t.bg, color: t.text }}
                       >
-                        <UploadSimple size={14} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => removeExperiment(e.id)}
-                        title="Delete"
-                        aria-label={`Delete ${e.name}`}
-                        className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-faint)] transition-colors duration-150 hover:bg-[var(--bg-elevated)] hover:text-[var(--status-critical-text)]"
-                      >
-                        <Trash size={14} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                        {STATUS_LABEL[tone]}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2 font-mono tabular-nums text-[var(--text-secondary)]">{e.summary.qualityScore.toFixed(0)}</td>
+                    <td className="px-3 py-2 font-mono tabular-nums text-[var(--text-secondary)]">{fmtTemp(e.summary.peakTemperatureC)}</td>
+                    <td className="px-3 py-2 font-mono tabular-nums text-[var(--text-secondary)]">{fmtCn(e.summary.finalCn)}</td>
+                    <td className="px-3 py-2 font-mono tabular-nums text-[var(--text-secondary)]">{fmtPct(e.summary.massLossPct, 1)}</td>
+                    <td className="px-3 py-2 text-xs text-[var(--text-faint)]">
+                      {new Date(e.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                    </td>
+                    <td className="px-3 py-2" onClick={(ev) => ev.stopPropagation()}>
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => setConfig(e.config)}
+                          title="Load into Reactor"
+                          aria-label={`Load ${e.name} into the live pile`}
+                          className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-faint)] transition-colors duration-150 hover:bg-[var(--bg-elevated)] hover:text-[var(--text-primary)]"
+                        >
+                          <UploadSimple size={14} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => removeExperiment(e.id)}
+                          title="Delete"
+                          aria-label={`Delete ${e.name}`}
+                          className="flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-faint)] transition-colors duration-150 hover:bg-[var(--bg-elevated)] hover:text-[var(--status-critical-text)]"
+                        >
+                          <Trash size={14} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  {expanded && (
+                    <tr className="border-b border-[var(--border)] bg-[var(--bg-well)] last:border-0">
+                      <td colSpan={9} className="px-4 py-4">
+                        <div className="flex flex-col gap-3 sm:flex-row sm:gap-8">
+                          <div>
+                            <div className="mb-1.5 text-xs font-medium uppercase tracking-wide text-[var(--text-faint)]">Recipe</div>
+                            <ul className="flex flex-col gap-1">
+                              {e.config.recipe.map((r) => (
+                                <li key={r.materialId} className="flex items-center gap-2 text-sm">
+                                  <span className="text-[var(--text-secondary)]">{getMaterial(r.materialId)?.name ?? r.materialId}</span>
+                                  <span className="font-mono tabular-nums text-xs text-[var(--text-faint)]">{fmtMass(r.massKg)}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div>
+                            <div className="mb-1.5 text-xs font-medium uppercase tracking-wide text-[var(--text-faint)]">Conditions</div>
+                            <ul className="flex flex-col gap-1 text-sm text-[var(--text-secondary)]">
+                              <li>{e.config.aeration} aeration, turned every {e.config.turnIntervalDays || '—'} days</li>
+                              <li>Moisture {e.config.moistureManaged ? 'actively managed' : 'unmanaged'}</li>
+                              <li>{e.config.ambientC}°C ambient · {e.config.heightM} m height · {e.config.durationDays}-day run</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
               );
             })}
           </tbody>

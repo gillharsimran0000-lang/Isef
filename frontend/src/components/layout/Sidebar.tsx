@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { CaretLineLeft, CaretLineRight } from '@phosphor-icons/react';
 import { NAV_ITEMS } from '@/lib/nav';
 import { Logo } from '@/components/ui/Logo';
@@ -31,14 +31,18 @@ export function Sidebar() {
         collapsed ? 'md:w-[68px]' : 'md:w-60'
       }`}
     >
-      <div className={`flex items-center gap-2.5 px-5 py-5 ${collapsed ? 'justify-center px-0' : ''}`}>
+      <Link
+        to="/"
+        title="Back to landing page"
+        className={`flex items-center gap-2.5 px-5 py-5 opacity-100 transition-opacity duration-150 hover:opacity-80 ${collapsed ? 'justify-center px-0' : ''}`}
+      >
         <Logo size={20} />
         {!collapsed && (
           <span className="font-display text-[15px] font-semibold tracking-tight text-[var(--text-primary)]">
             PILENGINE
           </span>
         )}
-      </div>
+      </Link>
       <nav className="flex flex-1 flex-col gap-1 px-3">
         {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
           <NavLink

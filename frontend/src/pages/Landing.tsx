@@ -15,7 +15,7 @@ const FAILURE_MODES = [
 
 const STEPS = [
   { title: 'Build a recipe', body: 'Choose feedstocks from a 24-material database, or let the solver hit a C/N ratio, moisture target and batch mass all at once.' },
-  { title: 'Watch the physics run', body: 'A coupled heat, mass, oxygen and microbial model integrates forward through 12,000 steps. No phase is scripted. They fall out of the arithmetic.' },
+  { title: 'Watch the science run', body: 'A coupled heat, mass, oxygen and microbial model integrates forward through 12,000 steps. No phase is scripted. They fall out of the arithmetic.' },
   { title: 'Read the diagnosis', body: 'A 0-100 Compost Intelligence Score and worst-first advisories tell you exactly which equation is limiting the pile right now.' },
 ];
 

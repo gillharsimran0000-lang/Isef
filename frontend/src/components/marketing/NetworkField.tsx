@@ -10,8 +10,8 @@ import { useEffect, useRef } from 'react';
  * Clicking/tapping gives every node on screen a repulsion impulse (a
  * "molecular collision") — closest nodes get the hardest kick, but the decay
  * is gentle enough that even far corners visibly join in. They scatter and
- * their speed relaxes back to the ambient drift over ~1-2s. Skipped entirely
- * under prefers-reduced-motion.
+ * their speed relaxes back to the ambient drift over ~1-2s. Click-only, no
+ * ambient/automatic bounce. Skipped entirely under prefers-reduced-motion.
  */
 
 interface Node {
@@ -135,10 +135,7 @@ export function NetworkField() {
       frameId = requestAnimationFrame(frame);
     }
 
-    function handlePointerDown(event: PointerEvent) {
-      const rect = canvas!.getBoundingClientRect();
-      const cx = event.clientX - rect.left;
-      const cy = event.clientY - rect.top;
+    function applyImpulse(cx: number, cy: number) {
       for (const n of nodes) {
         const dx = n.x - cx;
         const dy = n.y - cy;
@@ -151,6 +148,11 @@ export function NetworkField() {
         n.vy += (dy / dist) * force;
       }
       if (!frameId) frame();
+    }
+
+    function handlePointerDown(event: PointerEvent) {
+      const rect = canvas!.getBoundingClientRect();
+      applyImpulse(event.clientX - rect.left, event.clientY - rect.top);
     }
     canvas.addEventListener('pointerdown', handlePointerDown, { passive: true });
 
