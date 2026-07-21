@@ -34,6 +34,8 @@ export default {
         'pixel-square': ['var(--font-pixel-square)'],
         'pixel-line': ['var(--font-pixel-line)'],
         'pixel-triangle': ['var(--font-pixel-triangle)'],
+        'pixel-grid': ['var(--font-pixel-grid)'],
+        'pixel-circle': ['var(--font-pixel-circle)'],
       },
       borderRadius: { xl: '14px', '2xl': '18px', '3xl': '24px' },
       transitionTimingFunction: {

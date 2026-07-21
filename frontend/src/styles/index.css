@@ -40,13 +40,15 @@
  */
 
 :root {
-  --font-display: 'Geist', 'Inter', -apple-system, system-ui, sans-serif;
-  --font-sans: 'Geist', 'Inter', -apple-system, system-ui, sans-serif;
+  --font-display: 'Geist Pixel Square', 'Geist', 'Inter', -apple-system, system-ui, sans-serif;
+  --font-sans: 'Geist Pixel Grid', 'Geist', 'Inter', -apple-system, system-ui, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-serif: 'Newsreader', 'Iowan Old Style', serif;
   --font-pixel-square: 'Geist Pixel Square', var(--font-mono);
   --font-pixel-line: 'Geist Pixel Line', var(--font-mono);
   --font-pixel-triangle: 'Geist Pixel Triangle', var(--font-mono);
+  --font-pixel-grid: 'Geist Pixel Grid', var(--font-mono);
+  --font-pixel-circle: 'Geist Pixel Circle', var(--font-mono);
 
   --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-strong: cubic-bezier(0.65, 0, 0.35, 1);

@@ -58,8 +58,8 @@ export default function Landing() {
           <motion.h1
             variants={fadeUp}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-4xl italic tracking-tight text-[var(--text-primary)] sm:text-6xl"
-            style={{ lineHeight: 1.1 }}
+            className="font-pixel-line text-4xl tracking-wide text-[var(--text-primary)] sm:text-6xl"
+            style={{ lineHeight: 1.2 }}
           >
             Compost, simulated from first principles.
           </motion.h1>

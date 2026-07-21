@@ -9,7 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const base =
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-all duration-150 ease-out-strong disabled:opacity-40 disabled:pointer-events-none active:scale-[0.98]';
+  'relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-all duration-150 ease-out-strong disabled:opacity-40 disabled:pointer-events-none active:scale-[0.98] before:absolute before:left-1/2 before:top-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[""]';
 
 const variants: Record<Variant, string> = {
   primary: 'bg-[var(--text-primary)] text-[var(--bg-elevated)] hover:opacity-90',
